@@ -327,7 +327,3 @@ $ editrights.exe -a SeServiceLogonRight -u kashai
 $ ssh-host-config
 
 $ net start sshd
-
-
-
-
