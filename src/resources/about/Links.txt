@@ -1,0 +1,131 @@
+Big Data: Data beyond storage capacity and processing. Eg: Sensors, CC Cameras, Facebook, Online shopping, Airlines, NCDC.
+
+Combine, View, Analyze, Understand => Data.
+
+Intro Apache Hadoop & MapReduce:
+--------------------------------
+https://www.youtube.com/watch?v=xWgdny19yQ4
+https://www.youtube.com/watch?v=Pq3OyQO-l3E
+https://www.youtube.com/watch?v=_WwuZI6AhN8
+
+https://www.youtube.com/watch?v=myTA04dRe1k
+https://www.youtube.com/watch?v=lnF0ulmwJBU
+
+HortonWorks: https://www.youtube.com/watch?v=a0hY3pyWQ4U
+IBM Hadoop: https://www.youtube.com/watch?v=RQr0qd8gxW8
+             
+			                               -------------------------------------
+										   
+Overview of Apache framework: YARN, MapReduce, Pig, Hive, HBase, Oozie, Flume, Zoo Keeper.
+
+Data Management - Apache Hadoop YARN, HDFS
+================
+
+Data Access:
+============
+MapReduce
+
+NOSQL - Apache HBase (Log Structured Merge trees (LSM trees)), Apache Accumulo
+SQL - Apache Hive, Apache HCatalog
+Script - Apache Pig
+Stream - Apache Storm
+Search - Apache Solr
+In Memory - Apache Spark
+Apache Kafka
+Apache Mahout
+Apache Slider
+Apache Tez
+
+Data Workflow, Lifecycle & Governance - Apache Sqoop, Apache Flume, Apache Falcon
+======================================
+
+Security:
+=========
+Apache Knox, Apache Ranger
+
+Operations:
+===========
+Provision, Manage & Monitor - Apache Ambari, Apache ZooKeeper
+Scheduling - Oozie
+
+Pig vs. Hive:
+-------------
+https://www.youtube.com/watch?v=-LWstuKsIIU
+
+                                             ------------------------------------
+HDFS:
+-----
+cd.. -> /
+cd /usr/lib/hadoop/hadoop-examples/1.2.0.1.3.0.0.-107.jar
+
+To start name node: su hdfs - -c "hadoop-daemon.sh --config /etc/hadoop/ start namenode"
+To start a data node: su hdfs - -c "hadoop-daemon.sh --config /etc/hadoop start datanode"
+
+Put data files into HDFS. This command will take a file from disk and put into HDFS:
+su hdfs hadoop fs -put trial_file.csv /user/hdfs/trial_file.csv
+
+Read data from HDFS. This command will read the contents of a file from HDFS and display on the console:
+su hdfs hadoop fs -cat /user/hdfs/trial_file.csv
+
+MapReduce:
+----------											 
+To start the job tracker:  su mapred - -c "hadoop-daemon.sh --config /etc/hadoop start jobtracker; sleep 25"
+To start a task tracker:   su mapred - -c "hadoop-daemon.sh --config /etc/hadoop start tasktracker"
+
+http://127.0.0.1:8888/
+http://127.0.0.1:8000/about/
+http://127.0.0.1:50030/jobtracker.jsp
+http://127.0.0.1:50070/dfshealth.jsp
+
+The following command runs the sleep example with one mapper and one reducer: 
+hadoop jar /usr/lib/hadoop/hadoop-examples-1.0.0.jar sleep -m 1 -r 1
+
+Sqoop:
+------
+cd /usr/lib/sqoop/lib
+
+sqoop list-databases --connect jdbc:sqlserver://192.168.56.1:1433 --username hadoop --password hadoop1
+
+sqoop import --connect "jdbc:sqlserver://192.168.56.1:1433;database=PlanonACC;username=hadoop;password=hadoop1" --table PERS --hive-import -- --schema dbo
+
+                                             ------------------------------------
+HBase: 
+------
+Edureka: https://www.youtube.com/watch?v=fg0RMflDFPI
+Gregory: https://www.youtube.com/watch?v=jplBWzFKA0g
+Martin Flower: https://www.youtube.com/watch?v=qI_g07C_Q5I
+HBase Schema Design: https://www.youtube.com/watch?v=_HLoH_PgrLk
+Column oriented databases: https://www.youtube.com/watch?v=mRvkikVuojU
+                                             ------------------------------------											 
+											 
+Pig:
+----
+http://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-pig/
+
+Pig is a high level scripting language used with Apache Hadoop. Pig enables data workers to write complex data transformations without knowing Java. Pig's simple SQL-like scripting language is called Pig Latin, and appeals to developers already familiar with scripting languages and SQL.
+
+Pig can do all required data manipulations. Through User Defined Functions(UDF) facility, it can invoke code/scripts in other languages like JRuby, Jython and Java. It can be used as a component to build larger and more complex applications to tackle real business problems.
+
+Pig works with data from many sources, including structured and unstructured data, and store the results into the Hadoop Data File System. Pig scripts are translated into a series of MapReduce jobs that are run on the Apache Hadoop cluster.
+											 
+                                             ------------------------------------
+Apache Hive:
+------------
+https://www.youtube.com/watch?v=U0r9s4iXwo0
+https://www.youtube.com/watch?v=ZSzl4mylPiw
+http://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-hive/
+											 
+                                             ------------------------------------
+Apache Flume:
+--------------
+
+                                             ------------------------------------
+Apache HCatalog: Provides table abstraction.
+----------------
+https://www.youtube.com/watch?v=gTwhSAEEe1I										 
+                                             ------------------------------------
+											 
+                                             ------------------------------------
+											 
+                                             ------------------------------------
+

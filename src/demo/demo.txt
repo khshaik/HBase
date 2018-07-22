@@ -1,0 +1,123 @@
+Commands:
+-----------
+$ net stop sshd
+$ cygrunsrv -R sshd
+$ net user sshd /DELETE  # See note below
+$ rm -R /etc/ssh*
+$ mkpasswd -cl > /etc/passwd
+$ mkgroup --local > /etc/group
+
+$ editrights -l -u kashai
+
+$ editrights.exe -a SeAssignPrimaryTokenPrivilege -u kashai
+$ editrights.exe -a SeCreateTokenPrivilege -u kashai
+$ editrights.exe -a SeTcbPrivilege -u kashai
+$ editrights.exe -a SeServiceLogonRight -u kashai
+
+$ ssh-host-config
+
+$ net start sshd
+
+Setup:
+-------
+cd /usr/local/hadoop
+bin/start-dfs.sh
+bin/map-red.sh
+
+
+cd hbase-0.94.0/bin
+> start-hbase.sh
+> hbase shell
+
+Commands:
+----------
+1. create 'tablename', 'columnfamily'.
+2. describe 'tablename'.
+3. scan 'tablename'.
+4. Select some columns by rowkey: get 'tablename, 'rowid', ['columnfamily:col1', 'columnfamily:col2', 'columnfamily:col3']
+	get 'stocks', 'YAHOO_2', ['perf:Date', 'perf:Close', 'perf:Volume', 'perf:Open', 'perf:High', 'perf:Low']
+	get 'stocks', 'GOOGLE_1', ['perf:Symbol', 'perf:High', 'perf:Low']
+5. Select all columns of a table by rowkey: get 'tablename', 'rowid', 'columnfamilyname'
+   get 'stocks', 'YAHOO_2', 'perf'
+6. Put data into table based on rowkey: 
+      put 'tablename', 'rowid', 'columnfamily:col1', 'value1'
+	  put 'tablename', 'rowid', 'columnfamily:col2', 'value2'
+	  put 'stocks', 'YAHOO_2', 'perf:High', '560.02.3'
+
+UseCase1:
+---------
+1. Create a simple table using command create 'test', 'data'
+2. Verify the table exists using the command list
+3. Insert data into the table using e.g.
+put 'test', 'row1', 'data:1', 'data:value1'
+put 'test', 'row2', 'data:2', 'value2'
+put 'test', 'row3', 'data:3', 'value3'
+4. List all rows in the table using the command scan 'test'.  Notice how 3 new columns where added without changing the schema!
+5. We get rid of table by issuing disable 'test' followed by drop 'test' and verified by list which should give an empty listing.
+
+UseCase2:
+---------
+Rowkey 	  Symbol 	  Date 		Close 	Volume 	    Open    High 	Low
+---------------------------------------------------------------------------
+GOOGLE_1  GOOGLE 	1/21/2015 	89.54 	67890123 	61.5 	67.8 	64.5
+GOOGLE_2  GOOGLE 	1/22/2015 	88.76 	66890771 	60.4 	66.3 	62.7
+YAHOO_1   YAHOO		1/21/2015 	551.01 	4345677 	547.89  556.88  550.02
+YAHOO_2   YAHOO 	1/22/2015 	505.06 	4567890 	556.67  560.02  502.99
+CROCIN_1  CROCIN	1/21/2015 	12.56 	7654321 	12.45   12.89   12.32
+TATA_1 	  TATA 		1/21/2015 	178.22 	113456 		176.44  179.34  172.33
+TATA_2 	  TATA 		1/22/2015 	190.56 	116789 		192.46  195.56  191.11
+BMW_1 	  BMW 		1/21/2015 	250.01 	256789 		249.99  253.38  248.87
+BMW_2 	  BMW 		1/22/2015 	252.03 	257786 		248.77  259.19  251.14
+MERK_1 	  MERK 		1/21/2015 	124.67 	3678912 	121.09  124.56  119.87
+MERK_2 	  MERK 		1/22/2015 	99.99 	3287901 	122.22  124.56  120.03
+
+create 'stocks', 'perf'
+describe 'stocks'
+
+put 'stocks', 'GOOGLE_1', 'perf:Symbol', 'GOOGLE'
+put 'stocks', 'GOOGLE_1', 'perf:Date', '1/21/2015'
+put 'stocks', 'GOOGLE_1', 'perf:Close', '89.54'
+put 'stocks', 'GOOGLE_1', 'perf:Volume', '67890123'
+put 'stocks', 'GOOGLE_1', 'perf:Open', '61.5'
+put 'stocks', 'GOOGLE_1', 'perf:High', '67.8'
+put 'stocks', 'GOOGLE_1', 'perf:Low', '64.5'
+
+put 'stocks', 'GOOGLE_2', 'perf:Symbol', 'GOOGLE'
+put 'stocks', 'GOOGLE_2', 'perf:Date', '1/22/2015'
+put 'stocks', 'GOOGLE_2', 'perf:Close', '88.76'
+put 'stocks', 'GOOGLE_2', 'perf:Volume', '66890771'
+put 'stocks', 'GOOGLE_2', 'perf:Open', '60.4'
+put 'stocks', 'GOOGLE_2', 'perf:High', '66.3'
+put 'stocks', 'GOOGLE_2', 'perf:Low', '62.7'
+
+put 'stocks', 'YAHOO_1', 'perf:Symbol', 'YAHOO'
+put 'stocks', 'YAHOO_1', 'perf:Date', '1/21/2015'
+put 'stocks', 'YAHOO_1', 'perf:Close', '551.01'
+put 'stocks', 'YAHOO_1', 'perf:Volume', '4345677'
+put 'stocks', 'YAHOO_1', 'perf:Open', '547.89'
+put 'stocks', 'YAHOO_1', 'perf:High', '556.88'
+put 'stocks', 'YAHOO_1', 'perf:Low', '550.05'
+
+put 'stocks', 'YAHOO_2', 'perf:Symbol', 'YAHOO'
+put 'stocks', 'YAHOO_2', 'perf:Date', '1/22/2015'
+put 'stocks', 'YAHOO_2', 'perf:Close', '505.06'
+put 'stocks', 'YAHOO_2', 'perf:Volume', '4567890'
+put 'stocks', 'YAHOO_2', 'perf:Open', '556.67'
+put 'stocks', 'YAHOO_2', 'perf:High', '560.02.3'
+put 'stocks', 'YAHOO_2', 'perf:Low', '502.99'
+
+Questions:
+-----------
+What is the oldest volume for a given symbol?
+scan 'stocks', {COLUMNS=>['perf:Symbol','perf:Date','perf:Volume'],LIMIT=>1,STARTROW=>'GOOGLE_1'}
+
+What is the stock performance in the past two days?
+scan 'stocks', {LIMIT=>2,STARTROW=>'GOOGLE_1'}
+
+What is the latest high/low by Stock?
+scan 'stocks', {COLUMNS=>['perf:Symbol','perf:Date','perf:High','perf:Low'],LIMIT=>1,STARTROW=>'GOOGLE_2'}
+
+What is the performance of stock on '1/22/2015'.
+scan 'stocks', {COLUMNS=>['perf'],FILTER=>"(SingleColumnValueFilter('perf','Date',=,'regexstring:1/22/2015',false,false))"}
+
+--select * from stocks where date like '1/22/2015'
